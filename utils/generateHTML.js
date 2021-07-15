@@ -1,5 +1,6 @@
+
 function generateHTML(employees) {
-   let body = `` 
+   let body = ``
    for (let i = 0; i < employees.length; i++) {
     const card = `
     <div class="card" style="width: 18rem;">
@@ -11,7 +12,9 @@ function generateHTML(employees) {
       <ul class="list-group list-group-flush">
       <li class="list-group-item">${employees[i].getId()}</li>
       <li class="list-group-item">${employees[i].getEmail()}</li>
-      <li class="list-group-item">${employees[i].getName()}</li>
+      <li class="list-group-item">${employees[i].getOfficeNumber()}</li>
+      <li class="list-group-item">${employees[i].getGithub()}</li>v
+      <li class="list-group-item">${employees[i].getSchool()}</li>
     </ul>
     </div>
   </div>
