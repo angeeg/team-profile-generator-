@@ -1,20 +1,21 @@
 
-function generateHTML(employees) {
+
+function generateHTML(employeeData) {
    let body = ``
-   for (let i = 0; i < employees.length; i++) {
+   for (let i = 0; i < employeeData.length; i++) {
     const card = `
     <div class="card" style="width: 18rem;">
     <div class="card-body">
       <h5 class="card-title">
-      ${employees[i].getName()}
-      ${employees[i].getRole()}
+      ${employeeData[i].getName()}
+      ${employeeData[i].getRole()}
       </h5>
       <ul class="list-group list-group-flush">
-      <li class="list-group-item">${employees[i].getId()}</li>
-      <li class="list-group-item">${employees[i].getEmail()}</li>
-      <li class="list-group-item">${employees[i].getOfficeNumber()}</li>
-      <li class="list-group-item">${employees[i].getGithub()}</li>v
-      <li class="list-group-item">${employees[i].getSchool()}</li>
+      <li class="list-group-item">${employeeData[i].getId()}</li>
+      <li class="list-group-item">${employeeData[i].getEmail()}</li>
+      <li class="list-group-item">${employeeData[i].getOfficeNumber()}</li>
+      <li class="list-group-item">${employeeData[i].getGithub()}</li>v
+      <li class="list-group-item">${employeeData[i].getSchool()}</li>
     </ul>
     </div>
   </div>

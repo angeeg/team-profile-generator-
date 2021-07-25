@@ -5,25 +5,30 @@ const Employee = require("./lib/Employee");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const Manager = require("./lib/Manager");
+const { create } = require("domain");
 
 // Array of employees
-const employees = [];
+const employeeData = [];
+
 
 // Array to choose what type of profile to create
 const profileType = [
   {
     type: "list",
     name: "profile",
-    message: "Select what type of profile to create.",
-    choices: ["Engineer", "Intern", "Manager", "Quit"],
+    message: "Select what employee profile to create.",
+    choices: ["Engineer", "Intern", "Manager"],
   },
-  {
-    type: "list",
-    name: "addProfile",
-    message: "Select what type of profile to create.",
-    choices: ["Engineer", "Intern", "Manager", "Quit"]
-  }
 ];
+
+// 
+const addEmployee = [
+    {
+        type: "confirm",
+        name: "addEmployee",
+        message: "Would you like to add another employee?"
+      }
+]
 
 // Array of questions for Engineer profile
 const engineerPrompts = [
@@ -46,12 +51,7 @@ const engineerPrompts = [
     type: "input",
     name: "github",
     message: "Enter the engineer's github username.",
-  },
-  {
-    type: "confirm",
-    name: "addEmployee",
-    message: "Would you like to add another employee?",
-  },
+  }
 ];
 
 // Array of questions for Manager profile
@@ -75,12 +75,7 @@ const managerPrompts = [
     type: "number",
     name: "officeNumber",
     message: "Enter the manager's office number.",
-  },
-  {
-    type: "confirm",
-    name: "addEmployee",
-    message: "Would you like to add another employee?"
-  },
+  }
 ]
 ;
 
@@ -105,13 +100,8 @@ const internPrompts = [
     type: "input",
     name: "school",
     message: "Enter the intern's current school.",
-  },
-  {
-    type: "confirm",
-    name: "addEmployee",
-    message: "Would you like to add another employee?",
-    default: true
-  },
+  }
+ 
 ];
 
 function engineerFunc() {
@@ -122,7 +112,7 @@ function engineerFunc() {
       answers.email,
       answers.github
     );
-    employees.push(engineer);
+    employeeData.push(engineer);
   });
 }
 
@@ -134,7 +124,7 @@ function internFunc() {
       answers.email,
       answers.school
     );
-    employees.push(intern);
+    employeeData.push(intern);
   });
 }
 
@@ -146,12 +136,12 @@ function managerFunc() {
       answers.email,
       answers.officeNumber
     );
-    employees.push(manager)
+    employeeData.push(manager)
   });
 }
 
-// Initialize app
-function init() {
+// Function to create an employee profile 
+function createEmployee() {
   inquirer.prompt(profileType)
   .then((answers) => {
     if (answers.profile === "Engineer") {
@@ -163,13 +153,34 @@ function init() {
     if (answers.profile === "Manager") {
       managerFunc();
     }
-    if (answers.profile === "Quit") {
-       fs.writeToFile("index.html", generateHTML(employees))
-    }
     
   })
   ;
+};
+
+// TODO: Create function that will either exit prompts or add employee again 
+function exitPrompt() {
+    inquirer.prompt(addEmployee)
+    if (false) {
+        return inquirer.prompt({
+            
+        })
+    }
 }
+
+// TODO: Create function to init app 
+function init() {
+    createEmployee()
+    fs.writeFile('index.html', generateHTML(employeeData), err => {
+        if (err) {
+            console.log(err)
+            return;
+        }
+    })
+    
+}
+
+
 
 // Function call to initialize app
 init();
